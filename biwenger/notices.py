@@ -2,7 +2,6 @@ from datetime import datetime, date, timedelta
 from enum import Enum
 from typing import List, Dict
 
-
 class Notice:
     """
     Notice class displays a custom message for any of the functionalities defined in the app.
@@ -27,7 +26,7 @@ class Notice:
 
 class MarketNotice(Notice):
     def template(self):
-        return f"*Actualización diaria del mercado {date.today().strftime('%Y-%m-%d')}: * \n"
+        return f"*Actualización diaria del mercado {date.today().strftime('%Y-%m-%d')}:* \n "
 
     @staticmethod
     def trend_emote(trend_qty: str):
@@ -63,10 +62,10 @@ class MarketNotice(Notice):
                            f'_Last 5d sum_: {str(points_last)}\n',
                            f'_Price trend 5d_: {log["price_increment"]}%',
                            self.trend_emote(log["price_increment"]) + '\n',
-                           f'*2021/2022 Stats:*\n',
+                           f'*Last Season Stats:*\n',                        #? Maybe change this to dynamically grab the last season name
                            f'_Total points_: {log["total_points_last"]}\n',
                            f'_Matches played_: {log["matches_played_last"]}\n'
-                           f' _Relative Avg points_: {log["avg_points_per_match"]}\n',
+                           f'_Relative Avg points_: {log["avg_points_per_match"]}\n',
                            f'_Absolute avg points_: {log["avg_total_points"]}\n']
                 if "is_high_cost" in log.keys():
                     message.append("y aparece en el *top 20 + caros* del mercado\n")

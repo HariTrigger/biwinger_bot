@@ -1,2 +1,4 @@
-python-telegram-bot==20.0a2
-requests-cache==0.9.5
+python-telegram-bot==>=22.3
+requests-cache>=2.32.4
+python-dotenv>=1.1.1
+telegramify-markdown=>0.5.1

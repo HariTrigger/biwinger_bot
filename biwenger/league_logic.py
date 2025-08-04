@@ -4,8 +4,10 @@ import os
 from functools import lru_cache
 from operator import itemgetter
 from typing import List, Dict, Union
-
 import requests as requests
+
+#Input here the ID of the League you want to follow.
+LEAGUE_ID=1973521
 
 url_login = 'https://biwenger.as.com/api/v2/auth/login'
 url_account = 'https://biwenger.as.com/api/v2/account'
@@ -15,8 +17,7 @@ url_retire_market = "https://biwenger.as.com/api/v2/market?player="
 url_add_player_market = "https://biwenger.as.com/api/v2/market"
 url_all_players = "https://biwenger.as.com/api/v2/competitions/la-liga/data?lang=es&score=5"
 url_ranking = "https://biwenger.as.com/api/v2/rounds/league"
-url_transfers = "https://biwenger.as.com/api/v2/league/742220/board?type=transfer,market"
-
+url_transfers = f"https://biwenger.as.com/api/v2/league/{LEAGUE_ID}/board?type=transfer,market"
 
 class BiwengerApi:
 
@@ -36,8 +37,9 @@ class BiwengerApi:
             logger.info("call login ok!")
             return contents['token']
         else:
-            logger.info("error in login call, status: " + contents['status'])
-            return "error, status" + contents['status']
+            logger.info(f"error in login call, status: {contents['status']}")
+            contents=str(contents['status'])
+            return "error, status " + str(contents)
 
     @lru_cache(1)
     def get_account_info(self):
@@ -137,7 +139,7 @@ class BiwengerApi:
         _, headers = self.get_account_info()
         req = requests.get(url_all_players, headers=headers).text
         data = json.loads(req)['data']
-        events = data['events']
+        events = data['events'] # This Key doesn't exist anymore in the API, not sure what this was about.
         rounds = data['season']['rounds']
         if 'active' in [r['status'] for r in rounds]:
             return "active"
@@ -194,7 +196,10 @@ class BiwengerApi:
                                                         for mins in [z['rawStats']
                                                                      for z in stats if z['match']['status'] ==
                                                                      'finished']] if benchs == 0])
-        per_min_played = "{:.2f}".format(total_minutes_played / absolute_minutes)
+        try:
+            per_min_played = "{:.2f}".format(total_minutes_played / absolute_minutes)
+        except ZeroDivisionError:
+            per_min_played = "N/A"  
         return {'per_min_played': per_min_played, 'matches_bench': matches_not_played}
 
     def get_player_extended_information(self, id_player: str):

@@ -1,9 +1,12 @@
 /.ipynb_checkpoints/
 /.idea/
 /venv/
+/.venv/
+.env
 # Byte-compiled / optimized / DLL files
-__pycache__/
+/__pycache__/
 *.py[cod]
+*.pyc
 
 # C extensions
 *.so
@@ -51,3 +54,6 @@ coverage.xml
 
 # Sphinx documentation
 docs/_build/
+
+# Others
+examplebot.py
