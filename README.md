@@ -28,3 +28,6 @@ _This bot can be scheduled to show an update of your current league in Biwenger 
   * Time for the next round
   * If timer <24 it will show relevant urls for the round
 * Working on advanced statistics and predictions
+
+## Disclaimer 
+This is a fork of this original repo https://github.com/Poppeyye/biwenger_bot
