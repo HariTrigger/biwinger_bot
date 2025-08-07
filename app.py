@@ -24,11 +24,14 @@ logging.basicConfig(
 
 async def main() -> None:
     """Run bot."""
+    
     # Create the Application and pass it your bot's token.
     application = Application.builder().token(os.getenv("TELEGRAM_TOKEN")).build()
+
     # Init Client
     biwenger = BiwengerApi(os.getenv("USER_MAIL"), os.getenv("USER_PASS"))
     chat = os.getenv("TELEGRAM_ID_CHAT")
+
     # Main functionalities
 
     plys_user = MarketNotice().show(biwenger.get_players_in_market(free=False))
