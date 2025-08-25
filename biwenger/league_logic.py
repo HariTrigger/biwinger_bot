@@ -5,17 +5,19 @@ from functools import lru_cache
 from operator import itemgetter
 from typing import List, Dict, Union
 import requests as requests
+import sqlite3
+
 
 #Input here the ID of the League you want to follow.
-LEAGUE_ID=1973521
+LEAGUE_ID=os.getenv("BIWENGER_LEAGUE_ID")
 
 url_login = 'https://biwenger.as.com/api/v2/auth/login'
 url_account = 'https://biwenger.as.com/api/v2/account'
 url_players_market = 'https://biwenger.as.com/api/v2/user?fields=players(id,owner),market(*,-userID),-trophies'
-url_players_league = 'https://biwenger.as.com/api/v2/players/la-liga/'
+url_players_league = 'https://biwenger.as.com/api/v2/players/la-liga/' #  DISABLED ENDPOINT
 url_retire_market = "https://biwenger.as.com/api/v2/market?player="
 url_add_player_market = "https://biwenger.as.com/api/v2/market"
-url_all_players = "https://biwenger.as.com/api/v2/competitions/la-liga/data?lang=es&score=5"
+url_all_players = "https://biwenger.as.com/api/v2/competitions/la-liga/data?lang=es&score=5" #!Dumped
 url_ranking = "https://biwenger.as.com/api/v2/rounds/league"
 url_transfers = f"https://biwenger.as.com/api/v2/league/{LEAGUE_ID}/board?type=transfer,market"
 
@@ -222,7 +224,7 @@ class BiwengerApi:
         url = sofascore_url if sofascore_url != 'https://www.sofascore.com' else canonical_url
         last_5_prices = [price[1] for price in info_format['prices'][-5:]]
         last_season = [s for s in info_format['seasons'] if s['id'] == '2022' and s['name'] ==
-                       'Temporada 2021/2022']
+                       'Temporada 2024/2025']
         if not last_season:
             last_season = {'games': 0, 'points': '0'}
         else:

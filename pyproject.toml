@@ -4,6 +4,7 @@ version = "1.0.0"
 dependencies = [
     "python-dotenv>=1.1.1",
     "python-telegram-bot>=22.3",
+    "pytz>=2025.2",
     "requests>=2.32.4",
     "telegramify-markdown>=0.5.1",
 ]

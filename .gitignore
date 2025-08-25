@@ -4,6 +4,7 @@
 /.venv/
 .env
 uv.lock
+la_liga.sqlite
 
 # Byte-compiled / optimized / DLL files
 /__pycache__/
